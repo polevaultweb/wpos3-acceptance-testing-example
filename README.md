@@ -18,7 +18,7 @@ It is a companion to the Delicious Brains [post](https://deliciousbrains.com/?p=
 1. Copy the `codeception.dist.yml` file to `codeception.yml`
 1. Enter your AWS key, secret and bucket name in the `S3Filesystem` module config in `codeception.yml`
 1. Configure your local database credentials in the `WPDb` module config in `codeception.yml`
-1. Add `wpos3-acceptance.test` to your hosts file pointing to `/tests/tmp/wp` in the cloned repo
+1. Add a virtual host for `wpos3-acceptance.test` pointing to `/tests/tmp/wp` in the cloned repo
 
 ## Running the Tests
 
