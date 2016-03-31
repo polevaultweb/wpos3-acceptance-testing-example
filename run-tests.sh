@@ -123,6 +123,8 @@ PHP
 if [ 'true' == ${START_FROM_SCRATCH} ] || [ ! -f "$WP_SITE_PATH/index.php" ]; then
     install_wp
 
+    cd $PROJECT_ROOT
+
     echo "Building Acceptance Tests with Codeception..."
     php ./vendor/bin/codecept build
 else
