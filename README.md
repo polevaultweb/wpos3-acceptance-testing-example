@@ -4,6 +4,13 @@ This is an example of how to perform automated acceptance testing of a WordPress
 
 It is a companion to the Delicious Brains [post](https://deliciousbrains.com/?p=15941) on the same topic.
 
+## Requirements
+
+1. Composer
+2. Java (JDK)
+3. PHP 5.5+
+4. AWS account
+
 ## Install
 
 1. Clone the repository
