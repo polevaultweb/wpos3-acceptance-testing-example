@@ -36,5 +36,5 @@ $bucket = array_shift( $url_parts );
 $key = implode( '/', $url_parts );
 
 // Check attachment has been offloaded to Amazon S3
-$I->seeFile( $bucket, $key );
+$I->setBucket( $bucket )->seeFile( $key );
 

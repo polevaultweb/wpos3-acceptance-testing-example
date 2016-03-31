@@ -1475,12 +1475,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/polevaultweb/s3-filesystem.git",
-                "reference": "bd2aa1aa58313b4633e5198d45693bd0df5af097"
+                "reference": "22576bc46a95bc5b6cb919d2202a0804e7b24a20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/polevaultweb/s3-filesystem/zipball/bd2aa1aa58313b4633e5198d45693bd0df5af097",
-                "reference": "bd2aa1aa58313b4633e5198d45693bd0df5af097",
+                "url": "https://api.github.com/repos/polevaultweb/s3-filesystem/zipball/22576bc46a95bc5b6cb919d2202a0804e7b24a20",
+                "reference": "22576bc46a95bc5b6cb919d2202a0804e7b24a20",
                 "shasum": ""
             },
             "require": {
@@ -1513,7 +1513,7 @@
                 "codeception",
                 "s3"
             ],
-            "time": "2016-03-31 08:25:31"
+            "time": "2016-03-31 11:07:58"
         },
         {
             "name": "psr/http-message",
