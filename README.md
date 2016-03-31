@@ -1,6 +1,6 @@
 # WP Offload S3 - Automated Acceptance Testing Example Using Codeception
 
-This is an example of how to perform automated acceptance testing using Codeception of a WordPress plugin.
+This is an example of how to perform automated acceptance testing of a WordPress plugin using [Codeception](http://codeception.com/).
 
 It is a companion to the Delicious Brains [post](https://deliciousbrains.com/?p=15941) on the same topic.
 
