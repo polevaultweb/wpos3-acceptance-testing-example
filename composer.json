@@ -1,0 +1,21 @@
+{
+  "name": "polevaultweb/wpos3-acceptance-testing-example",
+  "description": "Example of automated acceptance testing using Codeception for WP Offload S3",
+  "keywords": [
+    "testing",
+    "acceptance",
+    "codeception",
+    "delicious brains",
+    "amazon",
+    "aws",
+    "s3"
+  ],
+  "homepage": "https://github.com/polevaultweb/wpos3-acceptance-testing-example",
+  "license": "GPL",
+  "require": {
+    "wp-cli/wp-cli": "0.20.*",
+    "codeception/codeception": "2.1.*",
+    "lucatume/wp-browser": "master@dev",
+    "polevaultweb/s3-filesystem": "master@dev"
+  }
+}

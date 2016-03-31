@@ -1,0 +1,39 @@
+actor: Tester
+paths:
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    helpers: tests/_support
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+modules:
+    config:
+        WPBrowser:
+            url: 'http://wpos3-acceptance.test'
+            adminUsername: admin
+            adminPassword: admin
+            adminUrl: /wp-admin
+        WPDb:
+            dsn: 'mysql:host=localhost;dbname=wpos3_acceptance_example'
+            user: root
+            password: mysql
+            dump: tests/_data/dump.sql
+            populate: false
+            cleanup: false
+            url: 'http://wpos3-acceptance.testt'
+            tablePrefix: wp_
+        WPWebDriver:
+            url: 'http://wpos3-acceptance.test'
+            browser: firefox
+            port: 4444
+            restart: true
+            wait: 2
+            adminUsername: admin
+            adminPassword: admin
+            adminUrl: /wp-admin
+        S3Filesystem:
+            accessKey:
+            accessSecret:
+            bucket:
