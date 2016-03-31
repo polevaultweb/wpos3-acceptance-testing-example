@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function usage() {
-	echo "Usage: $0 -u dbuser -p dbpassword [ -h dbhost ] [ -s start from scratch ] [ -t path to specific test ] [ -j use phantomjs ]"
+	echo "Usage: $0 -u dbuser -p dbpassword [ -h dbhost ] [ -s start from scratch ] [ -t path to specific test ]"
 	exit 2
 }
 
@@ -23,7 +23,7 @@ function parse_yaml {
    }'
 }
 
-while getopts "u:p:h:st:j" ARG
+while getopts "u:p:h:st" ARG
 do
 	case ${ARG} in
 	    u)  DB_USER=$OPTARG;;
@@ -31,7 +31,6 @@ do
 	    h)  DB_HOST=$OPTARG;;
 		s)	START_FROM_SCRATCH=true;;
 		t)  TEST_PATH=$OPTARG;;
-		j)  USE_PHANTOMJS=true;;
 		\?)	usage;;
 	esac
 done
@@ -78,27 +77,15 @@ SERVER_PATH="$PROJECT_ROOT/tests/tmp"
 WP_SITE_PATH="$SERVER_PATH/wp"
 
 SELENIUM_URL="http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.1.jar"
-PHANTOMJS_URL="https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-macosx.zip"
-
 SELENIUM_FILENAME="${SELENIUM_URL##*/}"
-PHANTOMJS_FILENAME="${PHANTOMJS_URL##*/}"
-PHANTOMJS_FOLDER="${PHANTOMJS_FILENAME%.*}"
 
 mkdir -p $SERVER_PATH
 
-if [ ! -f "$SERVER_PATH/$SELENIUM_FILENAME" ] && [ 'false' == ${USE_PHANTOMJS} ]; then
+if [ ! -f "$SERVER_PATH/$SELENIUM_FILENAME" ]; then
     echo "Downloading Selenium..."
     cd "$SERVER_PATH"
     curl -O "$SELENIUM_URL"
 fi
-if [ ! -d "$SERVER_PATH/$PHANTOMJS_FOLDER" ] && [ 'true' == ${USE_PHANTOMJS} ]; then
-    echo "Downloading PhantomJS..."
-    cd "$SERVER_PATH"
-    curl -LOk "$PHANTOMJS_URL"
-    tar -xf "$PHANTOMJS_FILENAME"
-    rm "$SERVER_PATH/$PHANTOMJS_FILENAME"
-fi
-
 
 function install_wp() {
     echo "Creating WordPress test site..."
@@ -145,37 +132,21 @@ fi
 
 cd $PROJECT_ROOT
 
-if [ 'true' == ${USE_PHANTOMJS} ]; then
-    echo "Running PhantomJS..."
-    pkill -f "$SERVER_PATH/$PHANTOMJS_FOLDER/bin/phantomjs"
-    rm "$SERVER_PATH/$PHANTOMJS_FOLDER/log.txt"
-    exec "$SERVER_PATH/$PHANTOMJS_FOLDER/bin/phantomjs" --webdriver=4444 > "$SERVER_PATH/$PHANTOMJS_FOLDER/log.txt" &
+echo "Running Selenium..."
+pkill -f "java -jar $SERVER_PATH/$SELENIUM_FILENAME"
+find . -name 'selenium.log*' -delete
+java -jar "$SERVER_PATH/$SELENIUM_FILENAME" -log "$SERVER_PATH/selenium.log" &
+sleep 1
+while ! grep -m1 'Selenium Server is up and running' < "$SERVER_PATH/selenium.log"; do
     sleep 1
-    while ! grep -m1 'running on port 4444' < "$SERVER_PATH/$PHANTOMJS_FOLDER/log.txt"; do
-        sleep 1
-    done
-else
-    echo "Running Selenium..."
-    pkill -f "java -jar $SERVER_PATH/$SELENIUM_FILENAME"
-    find . -name 'selenium.log*' -delete
-    java -jar "$SERVER_PATH/$SELENIUM_FILENAME" -log "$SERVER_PATH/selenium.log" &
-    sleep 1
-    while ! grep -m1 'Selenium Server is up and running' < "$SERVER_PATH/selenium.log"; do
-        sleep 1
-    done
-fi
+done
 
 echo "Running Acceptance Tests with Codeception..."
 WP_SITE_PATH="$WP_SITE_PATH" \
 php ./vendor/bin/codecept run acceptance
 
-if [ 'true' == ${USE_PHANTOMJS} ]; then
-    echo "Shutting down PhantomJS..."
-    pkill -f "$SERVER_PATH/$PHANTOMJS_FOLDER/bin/phantomjs"
-else
-    echo "Shutting down Selenium..."
-    pkill -f "java -jar $SERVER_PATH/$SELENIUM_FILENAME"
-fi
+echo "Shutting down Selenium..."
+pkill -f "java -jar $SERVER_PATH/$SELENIUM_FILENAME"
 
 echo "Killing Firefox"
 pkill -9 firefox
