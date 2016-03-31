@@ -29,8 +29,8 @@ $url  = $I->grabValueFrom( 'attachment_url' );
 $this->assertContains( 'amazonaws.com', $url );
 
 // Parse the URL
-$url = str_replace( 'http://s3.amazonaws.com/', '', $url );
-$url_parts = explode( '/', $url );
+$url       = explode( '.com/', $url );
+$url_parts = explode( '/', $url[1] );
 
 $bucket = array_shift( $url_parts );
 $key = implode( '/', $url_parts );
