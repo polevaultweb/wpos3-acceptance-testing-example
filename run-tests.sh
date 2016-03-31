@@ -105,6 +105,11 @@ function install_wp() {
     rm -rf $WP_SITE_PATH
     mkdir $WP_SITE_PATH
     cd "$WP_SITE_PATH"
+    cat > .gitignore << EOF
+# Ignore all WP
+/*
+EOF
+
     wp core download --force
     wp core config --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --extra-php <<PHP
     define( 'WP_DEBUG', true );
@@ -128,7 +133,7 @@ PHP
     wp plugin install amazon-s3-and-cloudfront --activate --force
 }
 
-if [ 'true' == ${START_FROM_SCRATCH} ] || [ ! -d $WP_SITE_PATH ]; then
+if [ 'true' == ${START_FROM_SCRATCH} ] || [ ! -f "$WP_SITE_PATH/index.php" ]; then
     install_wp
 
     echo "Building Acceptance Tests with Codeception..."

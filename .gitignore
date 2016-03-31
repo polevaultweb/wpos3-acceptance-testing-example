@@ -3,6 +3,7 @@ vendor
 
 tests/_output/*
 tests/_support/_generated/*
-tests/tmp
+tests/tmp/*
+!tests/tmp/wp/*
 
 codeception.yml
