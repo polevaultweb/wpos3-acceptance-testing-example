@@ -6,10 +6,10 @@ It is a companion to the Delicious Brains [post](https://deliciousbrains.com/?p=
 
 ### Requirements
 
-1. Composer
-2. Java (JDK)
+1. [Composer](https://getcomposer.org/)
+2. [Java (JDK)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 3. PHP 5.5+
-4. AWS account
+4. [AWS account](https://aws.amazon.com/)
 
 ### Install
 
@@ -25,4 +25,4 @@ It is a companion to the Delicious Brains [post](https://deliciousbrains.com/?p=
 
 `sh run-tests.sh`
 
-Optionally pass `-s` to start from scratch, which removes the WordPress site and re-installs.
+Optionally pass `-s` to start from scratch, which removes the WordPress site and re-installs. You don't need this flag the first time.
