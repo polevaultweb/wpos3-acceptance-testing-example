@@ -13,7 +13,8 @@ It is a companion to the Delicious Brains [post](https://deliciousbrains.com/?p=
 
 ### Install
 
-1. Clone the repository
+1. Clone the repository and `cd` into it.
+1. Make sure the permissions are correct on the `tests/tmp` directory using `chmod -R 755 tests/tmp`
 1. Run `composer install`
 1. Copy the `codeception.dist.yml` file to `codeception.yml`
 1. Enter your AWS key, secret and bucket name in the `S3Filesystem` module config in `codeception.yml`
