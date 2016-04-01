@@ -120,7 +120,7 @@ PHP
     wp plugin install amazon-s3-and-cloudfront --activate --force
 }
 
-if [ 'true' == ${START_FROM_SCRATCH} ] || [ ! -f "$WP_SITE_PATH/index.php" ]; then
+if [ 'true' == ${START_FROM_SCRATCH} ] || [ ! -d "$WP_SITE_PATH/wp-admin" ]; then
     install_wp
 
     cd $PROJECT_ROOT
