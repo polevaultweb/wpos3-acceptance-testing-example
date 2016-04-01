@@ -18,7 +18,7 @@ modules:
         WPDb:
             dsn: 'mysql:host=localhost;dbname=wpos3_acceptance_example'
             user: root
-            password: mysql
+            password: root
             dump: tests/_data/dump.sql
             populate: false
             cleanup: false
